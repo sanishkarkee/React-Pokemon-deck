@@ -4,7 +4,7 @@ import React from 'react';
 const TypeCard = () => {
   return (
     <>
-      <div></div>
+      <div>Type Card</div>
     </>
   );
 };
