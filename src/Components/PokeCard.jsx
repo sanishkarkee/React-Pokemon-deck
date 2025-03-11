@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { getPokedexNumber } from '../Utlis';
 
 const PokeCard = (props) => {
   const { selectedPokemon } = props;
@@ -29,7 +30,31 @@ const PokeCard = (props) => {
     }
 
     //We passed all the cache stuff to no avail and now need to fetch the data from the API
-    
+    const fetchPokemonData = async () => {
+      setLoading(true);
+      try {
+        const baseUrl = 'https://pokeapi.co/api/v2/';
+        const suffix = 'pokemon/' + getPokedexNumber(selectedPokemon);
+        const finalUrl = baseUrl + suffix;
+        console.log('Final URL:', finalUrl);
+
+        const res = await fetch(finalUrl);
+        const pokemonData = await res.json();
+
+        setData(pokemonData);
+        console.log(pokemonData);
+
+        //Updating the cache
+        cache[selectedPokemon] = pokemonData;
+        localStorage.setItem('pokedex', JSON.stringify(cache));
+      } catch (error) {
+        console.log('Error Occured', error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPokemonData();
 
     // 2.2-- Check if the selected pokemon is in the cache otherwise fetch from the API
     // 2.3-- If we fetch from the API, make sure to save the information to the cache for the next time
