@@ -1,10 +1,12 @@
-import PokeCard from './Components/PokeCard';
-import SideNav from './Components/SideNav';
-import Header from './Components/Header';
-import React, { useState } from 'react';
+import PokeCard from "./Components/PokeCard";
+import SideNav from "./Components/SideNav";
+import Header from "./Components/Header";
+import React, { useState } from "react";
 
 function App() {
   const [selectedPokemon, setSelectedPokemon] = useState(0);
+
+  console.log(selectedPokemon);
   return (
     <>
       <Header />
